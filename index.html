@@ -1,0 +1,314 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>History Finish Strong</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap">
+<style>
+/* Layout: teal header band with the deadline strip, then two working columns (my checklist | team progress), then the memo details. */
+:root{
+  --bg:#F7F9F9; --surface:#FFFFFF; --ink:#1F242B; --muted:#5B636E; --line:#DCE3E4;
+  --teal:#0F6E6E; --teal-soft:#E3EFEF; --amber:#C4610F; --amber-soft:#FBEBDD;
+  --done:#1E7D4F; --on-teal:#FFFFFF; --on-teal-muted:#BFE0DE;
+  --font:Calibri,Carlito,"Segoe UI",Verdana,system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121718; --surface:#1A2122; --ink:#E7ECEC; --muted:#9AA6A8; --line:#2C3638;
+  --teal:#3FA7A3; --teal-soft:#1D3233; --amber:#F0A15A; --amber-soft:#3A2A1C;
+  --done:#5CC28F; --on-teal:#0C1415; --on-teal-muted:#0F3B3A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121718; --surface:#1A2122; --ink:#E7ECEC; --muted:#9AA6A8; --line:#2C3638;
+  --teal:#3FA7A3; --teal-soft:#1D3233; --amber:#F0A15A; --amber-soft:#3A2A1C;
+  --done:#5CC28F; --on-teal:#0C1415; --on-teal-muted:#0F3B3A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+.hero{background:var(--teal);color:var(--on-teal);margin-top:calc(-1*env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 2.5rem);padding-bottom:2rem}
+.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.hero .eyebrow{color:var(--on-teal-muted)}
+.hero h1{font-size:clamp(2rem,5vw,3rem);margin:.4rem 0 .5rem}
+.hero p{margin:0;max-width:60ch;font-size:1.1rem}
+.strip{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.strip span{background:rgba(255,255,255,.14);border-radius:999px;padding:.3rem .8rem;font-size:.92rem}
+:root[data-theme="dark"] .strip span{background:rgba(0,0,0,.18)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .strip span{background:rgba(0,0,0,.18)}}
+main{padding-block:2rem 3rem;display:grid;gap:2.5rem}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.5rem;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.4rem}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.panel h2{font-size:1.45rem}
+.count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--teal)}
+.bar{height:8px;background:var(--teal-soft);border-radius:999px;overflow:hidden;margin-bottom:1.2rem}
+.bar i{display:block;height:100%;width:0;background:var(--teal);transition:width .3s}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+ol.check{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.8rem;align-items:start;padding:.75rem .85rem;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.item:hover{border-color:var(--teal)}
+.item input{width:22px;height:22px;margin:.1rem 0 0;accent-color:var(--teal);cursor:pointer}
+.item input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.item b{display:block}
+.item small{color:var(--muted);font-size:.9rem;display:block}
+.due{display:inline-block;margin-top:.3rem;font-size:.8rem;font-weight:700;color:var(--amber);background:var(--amber-soft);border-radius:4px;padding:.05rem .45rem}
+.item.is-done b{color:var(--muted);text-decoration:line-through}
+.item.is-done .due{color:var(--done);background:transparent;padding-left:0}
+.item.is-done .due::before{content:"Done · "}
+label.note{display:block;margin-top:1.2rem;font-weight:700}
+textarea{width:100%;margin-top:.4rem;min-height:4.5rem;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.6rem .7rem;resize:vertical}
+textarea:focus-visible{outline:2px solid var(--teal);border-color:var(--teal)}
+.status{min-height:1.4em;margin-top:.6rem;font-size:.9rem;color:var(--muted)}
+.notice{background:var(--teal-soft);border-radius:8px;padding:.9rem 1rem;color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+th,td{text-align:left;padding:.55rem .4rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+td.dots{white-space:nowrap}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--line);margin-right:3px;vertical-align:middle}
+.dot.on{background:var(--done);border-color:var(--done)}
+.pill{display:inline-block;font-size:.78rem;font-weight:700;border-radius:999px;padding:.1rem .55rem}
+.pill.all{background:var(--done);color:var(--surface)}
+.pill.part{background:var(--amber-soft);color:var(--amber)}
+.who{font-weight:700}
+.who small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
+.flag{display:block;margin-top:.25rem;font-size:.88rem;color:var(--amber)}
+.legend{font-size:.85rem;color:var(--muted);margin-top:.8rem}
+.empty{color:var(--muted);padding:1rem 0}
+.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+@media (max-width:720px){.details{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem}
+.card h3{font-size:1.2rem;margin-bottom:.15rem}
+.card .eyebrow{color:var(--teal)}
+.card ul{margin:.6rem 0 0;padding-left:1.1rem;display:grid;gap:.35rem}
+.section-title{font-size:1.6rem;margin-bottom:1rem}
+.close{background:var(--teal);color:var(--on-teal);border-radius:10px;padding:1.6rem}
+.close h2{font-size:1.5rem;margin:.3rem 0 .5rem}
+.close .eyebrow{color:var(--on-teal-muted)}
+.close p{margin:0;max-width:70ch}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">History Department · Week of 11/23</div>
+    <h1>Finish Strong: 48 Hours to Break</h1>
+    <p>All History O3s, CTMs, and department meetings this week shift to independent planning time. Use it to close out the deliverables below so you can unplug for the holiday.</p>
+    <div class="strip">
+      <span>Week 13 audit · Mon 11/23 EOD</span>
+      <span>Week 15 IPs · Tue 11/24, 10 PM</span>
+      <span>First Day Back · Tue 11/24 COB</span>
+      <span>Students return · Mon 11/30</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<main>
+  <div class="cols">
+    <section class="panel" aria-labelledby="mine-h">
+      <div class="panel-head">
+        <h2 id="mine-h">My deliverables</h2>
+        <span class="count" id="my-count">0 of 6</span>
+      </div>
+      <div class="bar" aria-hidden="true"><i id="my-bar"></i></div>
+      <div id="mine-msg" class="notice" hidden></div>
+      <ol class="check" id="my-list"></ol>
+      <label class="note" for="roadblock">Roadblocks? Tell me now, not Tuesday night.</label>
+      <textarea id="roadblock" placeholder="e.g., Copier on 3rd floor is down, need help printing for period 2"></textarea>
+      <div class="status" id="save-status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="team-h">
+      <div class="panel-head">
+        <h2 id="team-h">Team progress</h2>
+        <span class="count" id="team-count"></span>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th scope="col">Teacher</th><th scope="col">Deliverables</th><th scope="col">Status</th></tr></thead>
+          <tbody id="team-body"><tr><td colspan="3" class="empty">Loading team progress…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="legend" id="legend"></p>
+    </section>
+  </div>
+
+  <section aria-labelledby="det-h">
+    <h2 class="section-title" id="det-h">The details</h2>
+    <div class="details">
+      <article class="card">
+        <div class="eyebrow">Due Tue 11/24 · 10 PM</div>
+        <h3>Week 15 IPs</h3>
+        <ul>
+          <li>As stamped at our last department meeting, IPs must be completed and uploaded by Tuesday at 10 PM.</li>
+          <li>Ideally you’ve already started. This was a shorter planning week.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="eyebrow">Due Tue 11/24 · COB</div>
+        <h3>First Day Back materials</h3>
+        <ul>
+          <li>Print student copies for Monday 11/30, at minimum for your morning classes. Skip the post-break Monday copier line.</li>
+          <li>Love through Accountability 💙 Send me a photo of your First Day Back copies by Tuesday COB.</li>
+          <li>Going digital? Message me by Tuesday COB confirming materials are ready to post on Google Classroom.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="eyebrow">Audit Mon · Entry Tue</div>
+        <h3>Gradebooks</h3>
+        <ul>
+          <li>Week 13 grades were due last Friday and will be audited in the dashboard by Monday EOD, as usual.</li>
+          <li>The only Week 14 grade required is ONE Work Habit assignment. Enter it by Tuesday before you leave.</li>
+          <li>Plan your heaviest task for Monday and use Tuesday’s flex time to finish grading. Where it fits, spot-check in the moment or grade for completion.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="eyebrow">Tue 11/24</div>
+        <h3>Tuesday lesson execution</h3>
+        <ul>
+          <li>Flexing the day? Have a structured, no-opt-out plan for catching up on work or reviewing supplemental content.</li>
+          <li>Follow your IP. Adjust if attendance is light or students are pulled for incentives.</li>
+          <li>Students have meaningful work for the full period: Kahoot, Wayground, Blooket, unit vocab flashcards, grade report distribution.</li>
+          <li>Use smaller groups to actively support students who need to get back on track.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="eyebrow">Our value this week: Excellence</div>
+    <h2>100% completion by Tuesday’s deadlines, so everyone heads into the holiday ready to rest.</h2>
+    <p>Excellence means holding ourselves accountable to the urgent pursuit of results, even when we’re tired. 💪🏾 Reach out in advance with any roadblocks. Thank you for making these two days count! 💙</p>
+  </section>
+</main>
+</div>
+
+<script>
+const ITEMS = [
+  {k:"ips",   t:"Week 15 IPs completed and uploaded", d:"Tue 11/24, 10 PM"},
+  {k:"copies",t:"First Day Back copies printed", s:"At minimum for your morning classes on Mon 11/30", d:"Tue 11/24, COB"},
+  {k:"proof", t:"Photo of copies sent, or digital materials confirmed", s:"Digital: message me that they’re ready to post on Google Classroom", d:"Tue 11/24, COB"},
+  {k:"wk13",  t:"Week 13 grades entered", s:"Audited in the dashboard Monday EOD", d:"Mon 11/23, EOD"},
+  {k:"wk14",  t:"Week 14 Work Habit grade entered", s:"Only ONE Work Habit assignment is required", d:"Tue 11/24, before you leave"},
+  {k:"tues",  t:"Tuesday 11/24 lesson plan ready", s:"Structured, no-opt-out, meaningful work for the full period", d:"Tue 11/24"}
+];
+const $ = id => document.getElementById(id);
+let state = {items:{}, note:""};
+let db=null, user=null, myId=null, canWrite=true, myRef=null;
+let writing=false, pending=false, noteTimer=null, loaded=false;
+
+function renderMine(){
+  const list=$("my-list"); list.textContent="";
+  ITEMS.forEach(it=>{
+    const li=document.createElement("li");
+    const lab=document.createElement("label");
+    lab.className="item"+(state.items[it.k]?" is-done":"");
+    const cb=document.createElement("input");
+    cb.type="checkbox"; cb.id="chk-"+it.k; cb.checked=!!state.items[it.k]; cb.disabled=!canWrite;
+    cb.addEventListener("change",()=>{state.items[it.k]=cb.checked; renderMine(); save();});
+    const div=document.createElement("div");
+    const b=document.createElement("b"); b.textContent=it.t; div.appendChild(b);
+    if(it.s){const sm=document.createElement("small"); sm.textContent=it.s; div.appendChild(sm);}
+    const due=document.createElement("span"); due.className="due"; due.textContent=it.d; div.appendChild(due);
+    lab.append(cb,div); li.appendChild(lab); list.appendChild(li);
+  });
+  const n=ITEMS.filter(i=>state.items[i.k]).length;
+  $("my-count").textContent=n+" of "+ITEMS.length;
+  $("my-bar").style.width=(n/ITEMS.length*100)+"%";
+  if(document.activeElement!==$("roadblock")) $("roadblock").value=state.note||"";
+  $("roadblock").disabled=!canWrite;
+}
+
+function showMineMsg(msg){const m=$("mine-msg"); m.textContent=msg; m.hidden=!msg;}
+function status(t){$("save-status").textContent=t;}
+
+async function save(){
+  if(!myRef||!canWrite) return;
+  if(writing){pending=true; return;}
+  writing=true; status("Saving…");
+  try{
+    await myRef.set({items:{...state.items}, note:(state.note||"").slice(0,1000), updatedAt:Date.now()});
+    status("Saved");
+  }catch(e){
+    if(e&&e.code==="invalid_argument"){canWrite=false; renderMine(); showMineMsg("You can view this page but can’t save a checklist. Ask your department lead for Contributor access.");}
+    else status("Couldn’t save. Check your connection and try again.");
+  }
+  writing=false;
+  if(pending){pending=false; save();}
+}
+
+$("roadblock").addEventListener("input",e=>{
+  state.note=e.target.value; clearTimeout(noteTimer); status("Typing…");
+  noteTimer=setTimeout(save,900);
+});
+
+function fmtTime(ms){
+  if(!ms) return "";
+  const d=new Date(ms);
+  return d.toLocaleDateString(undefined,{weekday:"short"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+}
+
+async function renderTeam(docs){
+  const body=$("team-body"); body.textContent="";
+  const rows=docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));
+  if(!rows.length){
+    const tr=document.createElement("tr"); const td=document.createElement("td");
+    td.colSpan=3; td.className="empty"; td.textContent="No one has checked in yet. Each teacher appears here after they tick their first box.";
+    tr.appendChild(td); body.appendChild(tr); $("team-count").textContent=""; return;
+  }
+  let profiles={};
+  try{ if(user) profiles=await user.profiles(rows.map(r=>r.id)) || {}; }catch(e){}
+  const done=r=>ITEMS.filter(i=>r.items&&r.items[i.k]).length;
+  rows.sort((a,b)=>done(a)-done(b));
+  let complete=0;
+  rows.forEach(r=>{
+    const n=done(r); if(n===ITEMS.length) complete++;
+    const tr=document.createElement("tr");
+    const who=document.createElement("td"); who.className="who";
+    const p=profiles[r.id];
+    who.textContent=(p&&p.name)||"Teacher";
+    if(r.id===myId) who.textContent+=" (you)";
+    const sm=document.createElement("small"); sm.textContent=r.updatedAt?"Updated "+fmtTime(r.updatedAt):""; who.appendChild(sm);
+    if(r.note&&r.note.trim()){const f=document.createElement("span"); f.className="flag"; f.textContent="Roadblock: "+r.note.trim(); who.appendChild(f);}
+    const dots=document.createElement("td"); dots.className="dots";
+    ITEMS.forEach(i=>{const s=document.createElement("span"); const on=r.items&&r.items[i.k]; s.className="dot"+(on?" on":""); s.title=i.t+(on?": done":": not yet"); dots.appendChild(s);});
+    const st=document.createElement("td"); const pill=document.createElement("span");
+    pill.className="pill "+(n===ITEMS.length?"all":"part"); pill.textContent=n===ITEMS.length?"All done":n+" of "+ITEMS.length;
+    st.appendChild(pill);
+    tr.append(who,dots,st); body.appendChild(tr);
+  });
+  $("team-count").textContent=complete+" of "+rows.length+" complete";
+}
+
+$("legend").textContent="Dots, in order: "+ITEMS.map(i=>i.t).join(" · ")+".";
+renderMine();
+
+(async()=>{
+  const fail=setTimeout(()=>{ if(!loaded){
+    $("team-body").innerHTML='<tr><td colspan="3" class="empty">Team progress isn’t available right now. Open this page in Claude while signed in to save and see progress.</td></tr>';
+    showMineMsg("Your checklist can’t be saved in this view. Open the page while signed in to Claude to save it.");
+  }},10000);
+  try{
+    [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+  }catch(e){}
+  if(!db){ return; }
+  try{ myId=user?await user.id():null; }catch(e){}
+  try{ const c=user?await user.can("data.write"):null; if(c===false) canWrite=false; }catch(e){}
+  if(!myId){ canWrite=false; }
+  if(!canWrite) showMineMsg("You can view team progress but can’t save a checklist. Ask your department lead for Contributor access.");
+  if(myId){
+    myRef=db.collection("progress").doc(myId);
+    try{
+      const snap=await myRef.get();
+      if(snap.exists){const d=snap.data()||{}; state={items:d.items||{}, note:d.note||""};}
+    }catch(e){}
+  }
+  renderMine();
+  db.collection("progress").onSnapshot(snap=>{
+    loaded=true; clearTimeout(fail); renderTeam(snap.docs);
+  },err=>{
+    loaded=true; clearTimeout(fail);
+    $("team-body").innerHTML='<tr><td colspan="3" class="empty">Team progress couldn’t load. Reload the page to try again.</td></tr>';
+  });
+})();
+</script>
+
+</body></html>
